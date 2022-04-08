@@ -1,4 +1,7 @@
 import 'package:crypto_app/Providers/BottomBarSectionProvider.dart';
+import 'package:crypto_app/UI/Elements/AnimatedWidgets/LeftRightAnimationWidget.dart';
+import 'package:crypto_app/UI/Elements/AnimatedWidgets/UpDownAnimationWidget.dart';
+import 'package:crypto_app/UI/Elements/AnimatedWidgets/ZoomAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,75 +15,79 @@ class AppBottomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 95,
-      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
-      child: GlassmorphicFlexContainer(
-        child: Center(
-          child: Row(
-            children: [
-              BottomAppBarIconWidget(
-                  onTap: () {
-                    Provider.of<BottomBarSectionProvider>(context,
-                            listen: false)
-                        .onSelectSection(1);
-                  },
-                  asset: "assets/svg/home.svg",
-                  name: "Home",
-                  isExchange: false,
-                  isSelected: Provider.of<BottomBarSectionProvider>(context)
-                      .isThisSelected(1)),
-              BottomAppBarIconWidget(
-                  onTap: () {
-                    Provider.of<BottomBarSectionProvider>(context,
-                            listen: false)
-                        .onSelectSection(2);
-                  },
-                  asset: "assets/svg/briefcase.svg",
-                  name: "Portfolio",
-                  isExchange: false,
-                  isSelected: Provider.of<BottomBarSectionProvider>(context)
-                      .isThisSelected(2)),
-              BottomAppBarIconWidget(
-                  onTap: () {
-                    Provider.of<BottomBarSectionProvider>(context,
-                            listen: false)
-                        .onSelectSection(3);
-                  },
-                  asset: "assets/svg/exchange.svg",
-                  name: "Exchange",
-                  isExchange: true,
-                  isSelected: false),
-              BottomAppBarIconWidget(
-                  onTap: () {
-                    Provider.of<BottomBarSectionProvider>(context,
-                            listen: false)
-                        .onSelectSection(4);
-                  },
-                  asset: "assets/svg/market.svg",
-                  name: "Markets",
-                  isExchange: false,
-                  isSelected: Provider.of<BottomBarSectionProvider>(context)
-                      .isThisSelected(4)),
-              BottomAppBarIconWidget(
-                  onTap: () {
-                    Provider.of<BottomBarSectionProvider>(context,
-                            listen: false)
-                        .onSelectSection(5);
-                  },
-                  asset: "assets/svg/user.svg",
-                  name: "Profile",
-                  isExchange: false,
-                  isSelected: Provider.of<BottomBarSectionProvider>(context)
-                      .isThisSelected(5))
-            ],
+    return LeftRightAnimationWidget(
+      milliSeconds: 500,
+      isLeftToRight: false,
+      child: Container(
+        height: 95,
+        margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+        child: GlassmorphicContainer(
+          child: Center(
+            child: Row(
+              children: [
+                BottomAppBarIconWidget(
+                    onTap: () {
+                      Provider.of<BottomBarSectionProvider>(context,
+                              listen: false)
+                          .onSelectSection(1);
+                    },
+                    asset: "assets/svg/home.svg",
+                    name: "Home",
+                    isExchange: false,
+                    isSelected: Provider.of<BottomBarSectionProvider>(context)
+                        .isThisSelected(1)),
+                BottomAppBarIconWidget(
+                    onTap: () {
+                      Provider.of<BottomBarSectionProvider>(context,
+                              listen: false)
+                          .onSelectSection(2);
+                    },
+                    asset: "assets/svg/briefcase.svg",
+                    name: "Portfolio",
+                    isExchange: false,
+                    isSelected: Provider.of<BottomBarSectionProvider>(context)
+                        .isThisSelected(2)),
+                BottomAppBarIconWidget(
+                    onTap: () {
+                      //TODO: FUNC NEED TO BE ADDED
+                    },
+                    asset: "assets/svg/exchange.svg",
+                    name: "Exchange",
+                    isExchange: true,
+                    isSelected: false),
+                BottomAppBarIconWidget(
+                    onTap: () {
+                      Provider.of<BottomBarSectionProvider>(context,
+                              listen: false)
+                          .onSelectSection(4);
+                    },
+                    asset: "assets/svg/market.svg",
+                    name: "Markets",
+                    isExchange: false,
+                    isSelected: Provider.of<BottomBarSectionProvider>(context)
+                        .isThisSelected(4)),
+                BottomAppBarIconWidget(
+                    onTap: () {
+                      Provider.of<BottomBarSectionProvider>(context,
+                              listen: false)
+                          .onSelectSection(5);
+                    },
+                    asset: "assets/svg/user.svg",
+                    name: "Profile",
+                    isExchange: false,
+                    isSelected: Provider.of<BottomBarSectionProvider>(context)
+                        .isThisSelected(5))
+              ],
+            ),
           ),
+          blur: 8,
+          borderRadius: 8,
+          border: 2,
+          linearGradient: AppColors.appBarBackgroundColorGradient,
+          borderGradient: AppColors.appBarBorderGradient,
+          width: double.maxFinite,
+          height: 95,
         ),
-        blur: 8,
-        borderRadius: 8,
-        border: 2,
-        linearGradient: AppColors.appBarBackgroundColorGradient,
-        borderGradient: AppColors.appBarBorderGradient,
       ),
     );
   }
@@ -109,12 +116,20 @@ class BottomAppBarIconWidget extends StatelessWidget {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton(
-                  backgroundColor: AppColors.solidButtonColor,
-                  onPressed: onTap,
-                  child: SvgPicture.asset(
-                    asset,
-                    color: AppColors.unSelectedIcon,
+                ZoomAnimation(
+                  finalHeight: 55,
+                  initialHeight: 10,
+                  finalWidth: 55,
+                  delay: 500,
+                  initialWidth: 10,
+                  milliseconds: 300,
+                  child: FloatingActionButton(
+                    backgroundColor: AppColors.solidButtonColor,
+                    onPressed: onTap,
+                    child: SvgPicture.asset(
+                      asset,
+                      color: AppColors.unSelectedIcon,
+                    ),
                   ),
                 ),
                 const SizedBox(

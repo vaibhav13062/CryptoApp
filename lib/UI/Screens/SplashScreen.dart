@@ -18,8 +18,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    changeScreen();
-    DeviceSizeConfig().init(context);
+    Timer(const Duration(milliseconds: 1000), () {
+      setState(() {
+        h = 125;
+        w = 218;
+        opacity = 1.0;
+      });
+      changeScreen();
+    });
+
+    // DeviceSizeConfig().init(context);
     super.initState();
   }
 
@@ -30,13 +38,8 @@ class _SplashScreenState extends State<SplashScreen> {
   changeScreen() async {
     // bool permissionCheck = await PermissionHandler().getPermissionsCheck();
     // if (permissionCheck) {
-    setState(() {
-      h = 125;
-      w = 218;
-      opacity = 1.0;
-    });
 
-    Timer(const Duration(milliseconds: 1200), () {
+    Timer(const Duration(milliseconds: 1000), () {
       SplashFunction().goToMainScreen(context, widget.nextScreen);
     });
     // }
@@ -48,9 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: AnimatedOpacity(
           opacity: opacity,
-          duration: Duration(milliseconds: 1000),
+          duration: const Duration(milliseconds: 1000),
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 1000),
             height: h,
             curve: Curves.easeInOutBack,
             width: w,
