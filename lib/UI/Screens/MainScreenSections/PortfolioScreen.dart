@@ -1,3 +1,4 @@
+import 'package:crypto_app/UI/Screens/MainScreenSections/widgets/PortfolioSection.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../Elements/TopAppBar.dart';
@@ -10,7 +11,20 @@ class PortfolioScreen extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          const TopAppBar(),
+          TopAppBar(),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  PortfolioSection(),
+
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

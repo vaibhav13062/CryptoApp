@@ -8,28 +8,24 @@ class TopAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LeftRightAnimationWidget(
-      milliSeconds: 500,
-      isLeftToRight: false,
-      child: Container(
-        margin: const EdgeInsets.only(left: 15, right: 15),
-        child: SizedBox(
-            width: double.maxFinite,
-            height: 35,
-            child: Row(
-              children: [
-                Image.asset("assets/images/splashlogo.png"),
-                const Spacer(),
-                IconButton(
-                    splashRadius: 20,
-                    alignment: Alignment.centerRight,
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      "assets/svg/filter.svg",
-                    ))
-              ],
-            )),
-      ),
+    return Container(
+      margin: const EdgeInsets.only(left: 15, right: 15),
+      child: SizedBox(
+          width: double.maxFinite,
+          height: 35,
+          child: Row(
+            children: [
+              Image.asset("assets/images/splashlogo.png"),
+              const Spacer(),
+              IconButton(
+                  splashRadius: 20,
+                  alignment: Alignment.centerRight,
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    "assets/svg/filter.svg",
+                  ))
+            ],
+          )),
     );
   }
 }

@@ -1,4 +1,8 @@
 import 'package:crypto_app/UI/Elements/AnimatedWidgets/ZoomAnimation.dart';
+import 'package:crypto_app/UI/Screens/MainScreenSections/widgets/HomePortfolioSection.dart';
+import 'package:crypto_app/UI/Screens/MainScreenSections/widgets/TopCurrenciesSection.dart';
+import 'package:crypto_app/UI/Screens/MainScreenSections/widgets/WatchListHomeSection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../Elements/TopAppBar.dart';
@@ -11,14 +15,21 @@ class HomeScreen extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          const TopAppBar(),
-          ZoomAnimation(
-              finalWidth: 200,
-              initialWidth: 25,
-              finalHeight: 200,
-              milliseconds: 1000,
-              initialHeight: 25,
-              child: Image.asset("assets/images/splashlogo.png")),
+          TopAppBar(),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  HomePortfolio(),
+                  TopCurrenciesSection(),
+                  WatchListHomeSection(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

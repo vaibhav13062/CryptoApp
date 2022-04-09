@@ -11,14 +11,14 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: SizedBox(
-        height: double.maxFinite,
+      bottom: false,
+      child: Container(
         child: Stack(
-          alignment: Alignment.bottomCenter,
           children: [
             Provider.of<BottomBarSectionProvider>(context)
                 .getWidgetFromIndex(context),
-            AppBottomAppBar(),
+            const Align(
+                alignment: Alignment.bottomCenter, child: AppBottomAppBar()),
           ],
         ),
       ),

@@ -20,69 +20,79 @@ class AppBottomAppBar extends StatelessWidget {
       isLeftToRight: false,
       child: Container(
         height: 95,
-        margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+        margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
         child: GlassmorphicContainer(
           child: Center(
             child: Row(
               children: [
-                BottomAppBarIconWidget(
-                    onTap: () {
-                      Provider.of<BottomBarSectionProvider>(context,
-                              listen: false)
-                          .onSelectSection(1);
-                    },
-                    asset: "assets/svg/home.svg",
-                    name: "Home",
-                    isExchange: false,
-                    isSelected: Provider.of<BottomBarSectionProvider>(context)
-                        .isThisSelected(1)),
-                BottomAppBarIconWidget(
-                    onTap: () {
-                      Provider.of<BottomBarSectionProvider>(context,
-                              listen: false)
-                          .onSelectSection(2);
-                    },
-                    asset: "assets/svg/briefcase.svg",
-                    name: "Portfolio",
-                    isExchange: false,
-                    isSelected: Provider.of<BottomBarSectionProvider>(context)
-                        .isThisSelected(2)),
-                BottomAppBarIconWidget(
-                    onTap: () {
-                      //TODO: FUNC NEED TO BE ADDED
-                    },
-                    asset: "assets/svg/exchange.svg",
-                    name: "Exchange",
-                    isExchange: true,
-                    isSelected: false),
-                BottomAppBarIconWidget(
-                    onTap: () {
-                      Provider.of<BottomBarSectionProvider>(context,
-                              listen: false)
-                          .onSelectSection(4);
-                    },
-                    asset: "assets/svg/market.svg",
-                    name: "Markets",
-                    isExchange: false,
-                    isSelected: Provider.of<BottomBarSectionProvider>(context)
-                        .isThisSelected(4)),
-                BottomAppBarIconWidget(
-                    onTap: () {
-                      Provider.of<BottomBarSectionProvider>(context,
-                              listen: false)
-                          .onSelectSection(5);
-                    },
-                    asset: "assets/svg/user.svg",
-                    name: "Profile",
-                    isExchange: false,
-                    isSelected: Provider.of<BottomBarSectionProvider>(context)
-                        .isThisSelected(5))
+                Expanded(
+                  child: BottomAppBarIconWidget(
+                      onTap: () {
+                        Provider.of<BottomBarSectionProvider>(context,
+                                listen: false)
+                            .onSelectSection(1);
+                      },
+                      asset: "assets/svg/home.svg",
+                      name: "Home",
+                      isExchange: false,
+                      isSelected: Provider.of<BottomBarSectionProvider>(context)
+                          .isThisSelected(1)),
+                ),
+                Expanded(
+                  child: BottomAppBarIconWidget(
+                      onTap: () {
+                        Provider.of<BottomBarSectionProvider>(context,
+                                listen: false)
+                            .onSelectSection(2);
+                      },
+                      asset: "assets/svg/briefcase.svg",
+                      name: "Portfolio",
+                      isExchange: false,
+                      isSelected: Provider.of<BottomBarSectionProvider>(context)
+                          .isThisSelected(2)),
+                ),
+                Expanded(
+                  child: BottomAppBarIconWidget(
+                      onTap: () {
+                        //TODO: FUNC NEED TO BE ADDED
+                      },
+                      asset: "assets/svg/exchange.svg",
+                      name: "Exchange",
+                      isExchange: true,
+                      isSelected: false),
+                ),
+                Expanded(
+                  child: BottomAppBarIconWidget(
+                      onTap: () {
+                        Provider.of<BottomBarSectionProvider>(context,
+                                listen: false)
+                            .onSelectSection(4);
+                      },
+                      asset: "assets/svg/market.svg",
+                      name: "Markets",
+                      isExchange: false,
+                      isSelected: Provider.of<BottomBarSectionProvider>(context)
+                          .isThisSelected(4)),
+                ),
+                Expanded(
+                  child: BottomAppBarIconWidget(
+                      onTap: () {
+                        Provider.of<BottomBarSectionProvider>(context,
+                                listen: false)
+                            .onSelectSection(5);
+                      },
+                      asset: "assets/svg/user.svg",
+                      name: "Profile",
+                      isExchange: false,
+                      isSelected: Provider.of<BottomBarSectionProvider>(context)
+                          .isThisSelected(5)),
+                )
               ],
             ),
           ),
-          blur: 8,
+          blur: 5,
           borderRadius: 8,
-          border: 2,
+          border: 3,
           linearGradient: AppColors.appBarBackgroundColorGradient,
           borderGradient: AppColors.appBarBorderGradient,
           width: double.maxFinite,
@@ -110,7 +120,8 @@ class BottomAppBarIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+
       // flex: isExchange ? 6 : 5,
       child: isExchange
           ? Column(
