@@ -37,6 +37,9 @@ dependencies:
   flutter_bounceable: ^1.0.2
   flutter_svg: ^1.0.3
   glassmorphism: ^3.0.0
+  lottie: ^1.2.2
+  intl: ^0.17.0
+  flutter_easyloading: ^3.0.3
   flutter:
     sdk: flutter
 
@@ -72,6 +75,7 @@ flutter:
   assets:
      - assets/images/
      - assets/svg/
+     - assets/lottieAnimations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

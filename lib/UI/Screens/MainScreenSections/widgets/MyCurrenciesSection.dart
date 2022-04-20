@@ -1,20 +1,21 @@
 import 'package:crypto_app/MainUtils.dart';
-import 'package:crypto_app/UI/Elements/ProfitLossIndicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 
 import '../../../../Constants/AppColors.dart';
+import '../../../Elements/ProfitLossIndicator.dart';
 
-class WatchListHomeSection extends StatelessWidget {
-  const WatchListHomeSection({Key? key}) : super(key: key);
+class MyCurrenciesSection extends StatelessWidget {
+  const MyCurrenciesSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          const WatchListAppBar(),
+          MyCurrenciesSectionAppBar(),
           Container(
             child: ListView.builder(
               shrinkWrap: true,
@@ -26,12 +27,9 @@ class WatchListHomeSection extends StatelessWidget {
                     onTap: () {
                       print("OnTap");
                     },
-                    child: WatchListItem());
+                    child: MyCurrencyItem());
               },
             ),
-          ),
-          SizedBox(
-            height: 90,
           ),
         ],
       ),
@@ -39,8 +37,8 @@ class WatchListHomeSection extends StatelessWidget {
   }
 }
 
-class WatchListItem extends StatelessWidget {
-  const WatchListItem({Key? key}) : super(key: key);
+class MyCurrencyItem extends StatelessWidget {
+  const MyCurrencyItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,7 @@ class WatchListItem extends StatelessWidget {
                           fontSize: 18),
                     ),
                     Text(
-                      MainUtils().formatPrice(33.0),
+                      MainUtils().formatPrice(2300.0),
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: AppColors.textColor1,
@@ -107,19 +105,18 @@ class WatchListItem extends StatelessWidget {
   }
 }
 
-class WatchListAppBar extends StatelessWidget {
-  const WatchListAppBar({Key? key}) : super(key: key);
+class MyCurrenciesSectionAppBar extends StatelessWidget {
+  const MyCurrenciesSectionAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.maxFinite,
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 5),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            "WATCHLIST",
+            "MY CURRENCIES",
             style: TextStyle(
                 color: AppColors.textColor1,
                 fontSize: 16,

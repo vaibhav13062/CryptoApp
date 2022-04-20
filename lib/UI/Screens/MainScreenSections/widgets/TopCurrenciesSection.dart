@@ -1,9 +1,13 @@
 import 'package:crypto_app/Constants/AppColors.dart';
+import 'package:crypto_app/Constants/CryptoImagesConstantsUrl.dart';
 import 'package:crypto_app/Constants/DeviceSizeConfig.dart';
+import 'package:crypto_app/MainUtils.dart';
+import 'package:crypto_app/Providers/TopCurrenciesProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:provider/provider.dart';
 
 import '../../../Elements/ProfitLossIndicator.dart';
 
@@ -12,25 +16,38 @@ class TopCurrenciesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var allCurrencies =
+        Provider.of<TopCurrenciesProvider>(context).allCurrencies;
     return Container(
       child: Column(
         children: [
           const TopCurrenciesAppBar(),
-          Container(
-            height: 270,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (BuildContext context, int index) {
-                return Bounceable(
-                    onTap: () {
-                      print("OnTap");
+          Provider.of<TopCurrenciesProvider>(context).isLoaded
+              ? Container(
+                  height: 270,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: allCurrencies.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Bounceable(
+                          onTap: () {
+                            print("OnTap");
+                          },
+                          child: TopCurrencyItem(
+                            symbol: allCurrencies[index].symbol,
+                            heading: allCurrencies[index].name,
+                            percentageChng24: allCurrencies[index]
+                                .quote
+                                .Inr
+                                .percent_change_24h,
+                            inrAmount: allCurrencies[index].quote.Inr.price,
+                            slug: allCurrencies[index].slug,
+                          ));
                     },
-                    child: TopCurrencyItem());
-              },
-            ),
-          )
+                  ),
+                )
+              : CircularProgressIndicator(),
         ],
       ),
     );
@@ -38,14 +55,26 @@ class TopCurrenciesSection extends StatelessWidget {
 }
 
 class TopCurrencyItem extends StatelessWidget {
-  const TopCurrencyItem({Key? key}) : super(key: key);
+  final String heading;
+  final String symbol;
+  final String slug;
+  final double percentageChng24;
+  final double inrAmount;
+  const TopCurrencyItem(
+      {Key? key,
+      required this.heading,
+      required this.symbol,
+      required this.inrAmount,
+      required this.percentageChng24,
+      required this.slug})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 15),
+      margin: const EdgeInsets.only(left: 15),
       child: GlassmorphicContainer(
-        width: 230,
+        width: 235,
         height: 270,
         blur: 8,
         borderRadius: 8,
@@ -61,16 +90,20 @@ class TopCurrencyItem extends StatelessWidget {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Ethereum",
-                        maxLines: 1,
-                        style: TextStyle(
-                            color: AppColors.textColor1,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600),
+                    children: [
+                      Container(
+                        width: 125,
+                        child: Text(
+                          heading,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: AppColors.textColor1,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
-                      Text("ETH",
+                      Text(symbol,
                           maxLines: 1,
                           style: TextStyle(
                               color: AppColors.textColor2,
@@ -80,38 +113,37 @@ class TopCurrencyItem extends StatelessWidget {
                   ),
                   Spacer(),
                   ProfitLossIndicator(
-                    isLoss: false,
-                    percenatge: 12.2,
+                    isLoss: percentageChng24 < 0,
+                    percenatge: percentageChng24,
                   )
                 ],
               ),
-              SvgPicture.asset(
-                "assets/svg/graph.svg",
-                color: AppColors.selectedIcon,
-                width: double.maxFinite,
-                height: 150,
-              ),
+              Spacer(),
+              // SvgPicture.asset(
+              //   "assets/svg/graph.svg",
+              //   color: AppColors.selectedIcon,
+              //   width: double.maxFinite,
+              //   height: 150,
+              // ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: 40,
                     width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.red,
-                    ),
+                    child: SvgPicture.network(
+                        CryptoImagesConstantsUrl().cryptoImages[slug]!),
                   ),
                   Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
-                      Text("USD",
+                    children: [
+                      Text("INR",
                           style: TextStyle(
                               color: AppColors.textColor1,
                               fontSize: 15,
                               fontWeight: FontWeight.w400)),
-                      Text("122.333",
+                      Text(MainUtils().formatPriceWithCommas(inrAmount),
                           style: TextStyle(
                               color: AppColors.textColor1,
                               fontSize: 15,
@@ -119,7 +151,8 @@ class TopCurrencyItem extends StatelessWidget {
                     ],
                   )
                 ],
-              )
+              ),
+              SizedBox(height: 10,)
             ],
           ),
         ),

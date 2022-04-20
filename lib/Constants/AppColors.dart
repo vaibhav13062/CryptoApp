@@ -7,6 +7,9 @@ class AppColors {
   static const Color mainColor = isDarkMode
       ? Color.fromRGBO(14, 14, 14, 1)
       : Color.fromRGBO(255, 255, 255, 0.5);
+  static const Color dividerColor = isDarkMode
+      ? Color.fromRGBO(46, 44, 50, 1)
+      : Color.fromRGBO(245, 243, 252, 1);
   static const Color borderColor = isDarkMode
       ? Color.fromRGBO(65, 65, 65, 1)
       : Color.fromRGBO(255, 255, 255, 1);

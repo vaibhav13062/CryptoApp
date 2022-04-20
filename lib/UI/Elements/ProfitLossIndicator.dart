@@ -6,8 +6,13 @@ class ProfitLossIndicator extends StatelessWidget {
   final bool isLoss;
   final double percenatge;
   final bool? showBig;
+  final bool? showArrow;
   const ProfitLossIndicator(
-      {Key? key, required this.isLoss, required this.percenatge, this.showBig})
+      {Key? key,
+      required this.isLoss,
+      required this.percenatge,
+      this.showBig,
+      this.showArrow})
       : super(key: key);
 
   @override
@@ -17,13 +22,26 @@ class ProfitLossIndicator extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            isLoss ? Icons.arrow_drop_down_sharp : Icons.arrow_drop_up_sharp,
-            color: isLoss ? AppColors.lossColor : AppColors.profitColor,
-            size: showBig == null ? 25 : 30,
-          ),
+          showArrow == null
+              ? Icon(
+                  isLoss
+                      ? Icons.arrow_drop_down_sharp
+                      : Icons.arrow_drop_up_sharp,
+                  color: isLoss ? AppColors.lossColor : AppColors.profitColor,
+                  size: showBig == null ? 25 : 30,
+                )
+              : showArrow!
+                  ? Icon(
+                      isLoss
+                          ? Icons.arrow_drop_down_sharp
+                          : Icons.arrow_drop_up_sharp,
+                      color:
+                          isLoss ? AppColors.lossColor : AppColors.profitColor,
+                      size: showBig == null ? 25 : 30,
+                    )
+                  : Container(),
           Text(
-            percenatge.toString() + "%",
+            percenatge.toStringAsFixed(2) + "%",
             style: TextStyle(
                 color: isLoss ? AppColors.lossColor : AppColors.profitColor,
                 fontSize: showBig == null ? 14 : 18),

@@ -1,3 +1,4 @@
+import 'package:crypto_app/UI/Screens/MainScreenSections/widgets/MyCurrenciesSection.dart';
 import 'package:crypto_app/UI/Screens/MainScreenSections/widgets/PortfolioSection.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,7 +21,7 @@ class PortfolioScreen extends StatelessWidget {
               child: Column(
                 children: [
                   PortfolioSection(),
-
+                  MyCurrenciesSection(),
                 ],
               ),
             ),

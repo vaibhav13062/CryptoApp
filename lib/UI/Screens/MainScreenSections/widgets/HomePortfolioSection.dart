@@ -1,3 +1,4 @@
+import 'package:crypto_app/MainUtils.dart';
 import 'package:crypto_app/UI/Elements/ProfitLossIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -23,7 +24,7 @@ class HomePortfolio extends StatelessWidget {
                   fontWeight: FontWeight.w400)),
           Row(
             children: [
-              const Text("\$ 26,675.43",
+              Text(MainUtils().formatPrice(0.0),
                   maxLines: 1,
                   style: TextStyle(
                       color: AppColors.textColor1,

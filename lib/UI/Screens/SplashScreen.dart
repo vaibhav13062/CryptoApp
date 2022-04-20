@@ -1,8 +1,8 @@
 import 'dart:async';
-
+import 'package:crypto_app/Providers/TopCurrenciesProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:provider/provider.dart';
 import '../../Constants/DeviceSizeConfig.dart';
 import '../../NavigatoreServices/NavigatorService.dart';
 import '../../main.dart';
@@ -18,6 +18,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    Provider.of<TopCurrenciesProvider>(context, listen: false)
+        .fetchData(context);
     Timer(const Duration(milliseconds: 1000), () {
       setState(() {
         h = 125;
