@@ -7,7 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:http/http.dart' as http;
 
-import '../Constants/AppColors.dart';
+
 import '../Models/ResponseResolver.dart';
 
 import '../UI/ConnectionLost/ConnectionLost.dart';

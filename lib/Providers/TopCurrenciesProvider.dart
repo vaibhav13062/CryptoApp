@@ -9,6 +9,7 @@ class TopCurrenciesProvider extends ChangeNotifier {
   bool isLoaded = false;
 
   List<CurrencyItem> allCurrencies = [];
+  double marketPercentage = 0.0;
 
   Future<void> fetchData(BuildContext context) async {
     isLoaded = false;
@@ -18,9 +19,12 @@ class TopCurrenciesProvider extends ChangeNotifier {
         .then((value) {
       List<dynamic> tempData = value.data;
       print(tempData);
+      double totalPer = 0;
       for (int i = 0; i < tempData.length; i++) {
         allCurrencies.add(CurrencyItem.fromJsonMap(tempData[i]));
+        totalPer = totalPer + allCurrencies[i].quote.Inr.percent_change_24h;
       }
+      marketPercentage = totalPer / allCurrencies.length;
       isLoaded = true;
       notifyListeners();
     });

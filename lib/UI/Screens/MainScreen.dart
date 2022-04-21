@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+   MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
           children: [
             Provider.of<BottomBarSectionProvider>(context)
                 .getWidgetFromIndex(context),
-            const Align(
+             Align(
                 alignment: Alignment.bottomCenter, child: AppBottomAppBar()),
           ],
         ),

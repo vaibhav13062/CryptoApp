@@ -6,7 +6,7 @@ class LeftRightAnimationWidget extends StatefulWidget {
   final Widget child;
   final int milliSeconds;
   final bool isLeftToRight;
-  const LeftRightAnimationWidget(
+   LeftRightAnimationWidget(
       {Key? key,
       required this.child,
       required this.milliSeconds,

@@ -1,16 +1,26 @@
 import 'package:crypto_app/MainUtils.dart';
+import 'package:crypto_app/UI/Elements/AnimatedWidgets/LeftRightAnimationWidget.dart';
 import 'package:crypto_app/UI/Elements/ProfitLossIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:glassmorphism/glassmorphism.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../Constants/AppColors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../Constants/CryptoImagesConstantsUrl.dart';
+import '../../../../Providers/ThemeProvider.dart';
+import '../../../../Providers/TopCurrenciesProvider.dart';
 
 class WatchListHomeSection extends StatelessWidget {
   const WatchListHomeSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var allCurrencies =
+        Provider.of<TopCurrenciesProvider>(context).allCurrencies;
     return Container(
       child: Column(
         children: [
@@ -20,13 +30,24 @@ class WatchListHomeSection extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 15,
+              itemCount: allCurrencies.length,
               itemBuilder: (BuildContext context, int index) {
                 return Bounceable(
                     onTap: () {
                       print("OnTap");
                     },
-                    child: WatchListItem());
+                    child: LeftRightAnimationWidget(
+                      isLeftToRight: false,
+                      milliSeconds: index <=6 ? 250 * (index+1) : 0,
+                      child: WatchListItem(
+                        symbol: allCurrencies[index].symbol,
+                        heading: allCurrencies[index].name,
+                        percentageChng24:
+                            allCurrencies[index].quote.Inr.percent_change_24h,
+                        inrAmount: allCurrencies[index].quote.Inr.price,
+                        slug: allCurrencies[index].slug,
+                      ),
+                    ));
               },
             ),
           ),
@@ -40,21 +61,40 @@ class WatchListHomeSection extends StatelessWidget {
 }
 
 class WatchListItem extends StatelessWidget {
-  const WatchListItem({Key? key}) : super(key: key);
+  final String heading;
+  final String symbol;
+  final String slug;
+  final double percentageChng24;
+  final double inrAmount;
+  const WatchListItem(
+      {Key? key,
+      required this.heading,
+      required this.symbol,
+      required this.slug,
+      required this.percentageChng24,
+      required this.inrAmount})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       child: Row(
         children: [
-          Container(
+          GlassmorphicContainer(
             height: 65,
             width: 65,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.red,
+            blur: 8,
+            borderRadius: 60,
+            border: 3,
+            linearGradient:
+            Provider.of<ThemeProvider>(context).appBarBackgroundColorGradient,
+            borderGradient:
+            Provider.of<ThemeProvider>(context).appBarBorderGradient,
+            child: Center(
+              child: SvgPicture.asset(
+                CryptoImagesantsUrl().cryptoImages[slug]!,height: 30,width: 30,),
             ),
           ),
           const SizedBox(
@@ -67,17 +107,17 @@ class WatchListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Ripple",
+                      heading,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textColor1,
+                          color: Provider.of<ThemeProvider>(context).textColor1,
                           fontSize: 18),
                     ),
                     Text(
-                      MainUtils().formatPrice(33.0),
+                      MainUtils().formatPrice(inrAmount),
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textColor1,
+                          color: Provider.of<ThemeProvider>(context).textColor1,
                           fontSize: 16),
                     )
                   ],
@@ -87,15 +127,16 @@ class WatchListItem extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
-                      "XRP",
+                      symbol,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor2,
+                          color: Provider.of<ThemeProvider>(context).textColor2,
                           fontSize: 18),
                     ),
-                    ProfitLossIndicator(isLoss: true, percenatge: 33.5)
+                    ProfitLossIndicator(
+                        isLoss: percentageChng24<0, percenatge: percentageChng24)
                   ],
                 )
               ],
@@ -118,10 +159,10 @@ class WatchListAppBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "WATCHLIST",
             style: TextStyle(
-                color: AppColors.textColor1,
+                color: Provider.of<ThemeProvider>(context).textColor1,
                 fontSize: 16,
                 fontWeight: FontWeight.w600),
           ),
@@ -129,17 +170,17 @@ class WatchListAppBar extends StatelessWidget {
           TextButton(
               onPressed: () {},
               child: Row(
-                children: const [
+                children: [
                   Text(
                     "Manage",
                     style: TextStyle(
-                        color: AppColors.textColor1,
+                        color: Provider.of<ThemeProvider>(context).textColor1,
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                   Icon(
                     Icons.chevron_right,
-                    color: AppColors.textColor1,
+                    color: Provider.of<ThemeProvider>(context).textColor1,
                   )
                 ],
               ))

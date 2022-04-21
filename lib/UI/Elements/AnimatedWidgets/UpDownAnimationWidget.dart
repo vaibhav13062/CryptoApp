@@ -7,7 +7,7 @@ class UpDownAnimationWidget extends StatefulWidget {
   final int milliSeconds;
   final int startPosition;
   final bool isBottomToTop;
-  const UpDownAnimationWidget(
+   UpDownAnimationWidget(
       {Key? key,
       required this.child,
       required this.milliSeconds,

@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../Constants/DeviceSizeConfig.dart';
 import '../../NavigatoreServices/NavigatorService.dart';
+import '../../Providers/ThemeProvider.dart';
+import '../../Providers/UserAmountCalculator.dart';
 import '../../main.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Provider.of<TopCurrenciesProvider>(context, listen: false)
         .fetchData(context);
+    Provider.of<UserAmountCalculator>(context, listen: false).addInitalFundsToUser();
     Timer(const Duration(milliseconds: 1000), () {
       setState(() {
         h = 125;
@@ -49,6 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DeviceSizeConfig().init(context);
     return Scaffold(
       body: Center(
         child: AnimatedOpacity(

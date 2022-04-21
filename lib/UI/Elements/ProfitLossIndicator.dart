@@ -1,4 +1,6 @@
-import 'package:crypto_app/Constants/AppColors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../Providers/ThemeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -27,7 +29,9 @@ class ProfitLossIndicator extends StatelessWidget {
                   isLoss
                       ? Icons.arrow_drop_down_sharp
                       : Icons.arrow_drop_up_sharp,
-                  color: isLoss ? AppColors.lossColor : AppColors.profitColor,
+                  color: isLoss
+                      ? Provider.of<ThemeProvider>(context).lossColor
+                      : Provider.of<ThemeProvider>(context).profitColor,
                   size: showBig == null ? 25 : 30,
                 )
               : showArrow!
@@ -35,15 +39,18 @@ class ProfitLossIndicator extends StatelessWidget {
                       isLoss
                           ? Icons.arrow_drop_down_sharp
                           : Icons.arrow_drop_up_sharp,
-                      color:
-                          isLoss ? AppColors.lossColor : AppColors.profitColor,
+                      color: isLoss
+                          ? Provider.of<ThemeProvider>(context).lossColor
+                          : Provider.of<ThemeProvider>(context).profitColor,
                       size: showBig == null ? 25 : 30,
                     )
                   : Container(),
           Text(
             percenatge.toStringAsFixed(2) + "%",
             style: TextStyle(
-                color: isLoss ? AppColors.lossColor : AppColors.profitColor,
+                color: isLoss
+                    ? Provider.of<ThemeProvider>(context).lossColor
+                    : Provider.of<ThemeProvider>(context).profitColor,
                 fontSize: showBig == null ? 14 : 18),
           )
         ],

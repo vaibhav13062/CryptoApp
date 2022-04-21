@@ -6,7 +6,7 @@ class FadeInOutAnimationWidget extends StatefulWidget {
   final Widget child;
   final int milliSeconds;
   final bool isFadeIn;
-  const FadeInOutAnimationWidget(
+   FadeInOutAnimationWidget(
       {Key? key,
       required this.milliSeconds,
       required this.child,

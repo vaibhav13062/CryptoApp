@@ -1,4 +1,8 @@
-import 'package:crypto_app/Constants/AppColors.dart';
+import 'package:crypto_app/UI/Elements/AnimatedWidgets/LeftRightAnimationWidget.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../Providers/ThemeProvider.dart';
+
 import 'package:crypto_app/Constants/CryptoImagesConstantsUrl.dart';
 import 'package:crypto_app/Constants/DeviceSizeConfig.dart';
 import 'package:crypto_app/MainUtils.dart';
@@ -23,30 +27,34 @@ class TopCurrenciesSection extends StatelessWidget {
         children: [
           const TopCurrenciesAppBar(),
           Provider.of<TopCurrenciesProvider>(context).isLoaded
-              ? Container(
-                  height: 270,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: allCurrencies.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Bounceable(
-                          onTap: () {
-                            print("OnTap");
-                          },
-                          child: TopCurrencyItem(
-                            symbol: allCurrencies[index].symbol,
-                            heading: allCurrencies[index].name,
-                            percentageChng24: allCurrencies[index]
-                                .quote
-                                .Inr
-                                .percent_change_24h,
-                            inrAmount: allCurrencies[index].quote.Inr.price,
-                            slug: allCurrencies[index].slug,
-                          ));
-                    },
+              ? LeftRightAnimationWidget(
+            isLeftToRight: false,
+            milliSeconds:200,
+            child: Container(
+                    height: 270,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: allCurrencies.length-18,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Bounceable(
+                            onTap: () {
+                              print("OnTap");
+                            },
+                            child: TopCurrencyItem(
+                              symbol: allCurrencies[index].symbol,
+                              heading: allCurrencies[index].name,
+                              percentageChng24: allCurrencies[index]
+                                  .quote
+                                  .Inr
+                                  .percent_change_24h,
+                              inrAmount: allCurrencies[index].quote.Inr.price,
+                              slug: allCurrencies[index].slug,
+                            ));
+                      },
+                    ),
                   ),
-                )
+              )
               : CircularProgressIndicator(),
         ],
       ),
@@ -79,8 +87,10 @@ class TopCurrencyItem extends StatelessWidget {
         blur: 8,
         borderRadius: 8,
         border: 3,
-        linearGradient: AppColors.appBarBackgroundColorGradient,
-        borderGradient: AppColors.appBarBorderGradient,
+        linearGradient:
+            Provider.of<ThemeProvider>(context).appBarBackgroundColorGradient,
+        borderGradient:
+            Provider.of<ThemeProvider>(context).appBarBorderGradient,
         child: Container(
           padding: const EdgeInsets.only(left: 13, right: 13, top: 20),
           child: Column(
@@ -98,7 +108,8 @@ class TopCurrencyItem extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              color: AppColors.textColor1,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .textColor1,
                               fontSize: 17,
                               fontWeight: FontWeight.w600),
                         ),
@@ -106,7 +117,8 @@ class TopCurrencyItem extends StatelessWidget {
                       Text(symbol,
                           maxLines: 1,
                           style: TextStyle(
-                              color: AppColors.textColor2,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .textColor2,
                               fontSize: 18,
                               fontWeight: FontWeight.w300))
                     ],
@@ -119,20 +131,20 @@ class TopCurrencyItem extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              // SvgPicture.asset(
-              //   "assets/svg/graph.svg",
-              //   color: AppColors.selectedIcon,
-              //   width: double.maxFinite,
-              //   height: 150,
-              // ),
+              Image.asset(
+                MainUtils().getGrapghImage(percentageChng24, context),
+                color: Provider.of<ThemeProvider>(context).selectedIcon,
+                width: double.maxFinite,
+              ),
+              Spacer(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: 40,
                     width: 40,
-                    child: SvgPicture.network(
-                        CryptoImagesConstantsUrl().cryptoImages[slug]!),
+                    child: SvgPicture.asset(
+                        CryptoImagesantsUrl().cryptoImages[slug]!),
                   ),
                   Spacer(),
                   Column(
@@ -140,19 +152,23 @@ class TopCurrencyItem extends StatelessWidget {
                     children: [
                       Text("INR",
                           style: TextStyle(
-                              color: AppColors.textColor1,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .textColor1,
                               fontSize: 15,
                               fontWeight: FontWeight.w400)),
                       Text(MainUtils().formatPriceWithCommas(inrAmount),
                           style: TextStyle(
-                              color: AppColors.textColor1,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .textColor1,
                               fontSize: 15,
                               fontWeight: FontWeight.w600))
                     ],
                   )
                 ],
               ),
-              SizedBox(height: 10,)
+              SizedBox(
+                height: 10,
+              )
             ],
           ),
         ),
@@ -171,10 +187,10 @@ class TopCurrenciesAppBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "TOP CURRENCIES",
             style: TextStyle(
-                color: AppColors.textColor1,
+                color: Provider.of<ThemeProvider>(context).textColor1,
                 fontSize: 16,
                 fontWeight: FontWeight.w600),
           ),
@@ -182,17 +198,17 @@ class TopCurrenciesAppBar extends StatelessWidget {
           TextButton(
               onPressed: () {},
               child: Row(
-                children: const [
+                children: [
                   Text(
                     "Explore",
                     style: TextStyle(
-                        color: AppColors.textColor1,
+                        color: Provider.of<ThemeProvider>(context).textColor1,
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                   Icon(
                     Icons.chevron_right,
-                    color: AppColors.textColor1,
+                    color: Provider.of<ThemeProvider>(context).textColor1,
                   )
                 ],
               ))

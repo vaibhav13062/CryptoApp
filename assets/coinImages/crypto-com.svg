@@ -1,0 +1,14 @@
+<svg id="crypto-com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2167.8" height="2502.5" viewBox="0 0 2167.8 2502.5">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.367" y1="0.679" x2="0.367" y2="0.643" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#25376c"/>
+      <stop offset="1" stop-color="#1f1f49"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.716" y1="0.643" x2="0.716" y2="0.679" xlink:href="#linear-gradient"/>
+  </defs>
+  <path id="Path_21" data-name="Path 21" d="M1083.9,0,0,625.6V1876.9l1083.9,625.6,1083.9-625.6V625.6Z" fill="url(#linear-gradient)"/>
+  <path id="Path_22" data-name="Path 22" d="M1083.9,0,0,625.6V1876.9l1083.9,625.6Z" fill="url(#linear-gradient-2)"/>
+  <path id="Path_23" data-name="Path 23" d="M1506.4,540.6H655.8L557,974.1H1610.7Zm-699.7,1029V1281.5L554.3,1122.3,268.9,1333.6l389.6,677.8H815l183.8-172.9v-85.1Z" fill="#fff"/>
+  <path id="Path_24" data-name="Path 24" d="M1358.3,1040H809.5l90.6,241.5-27.4,271.7h422.6l-27.4-271.7Z" fill="#fff"/>
+  <path id="Path_25" data-name="Path 25" d="M1610.7,1119.5,1361,1281.4v288.1l-189.3,183.8v85.1l183.8,170.1h153.7l386.9-675Z" fill="#fff"/>
+</svg>

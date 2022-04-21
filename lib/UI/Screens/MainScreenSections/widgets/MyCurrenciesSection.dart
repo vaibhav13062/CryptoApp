@@ -1,17 +1,24 @@
 import 'package:crypto_app/MainUtils.dart';
+import 'package:crypto_app/UI/Elements/AnimatedWidgets/LeftRightAnimationWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-import '../../../../Constants/AppColors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../Constants/CryptoImagesConstantsUrl.dart';
+import '../../../../Providers/ThemeProvider.dart';
+import '../../../../Providers/TopCurrenciesProvider.dart';
 import '../../../Elements/ProfitLossIndicator.dart';
 
 class MyCurrenciesSection extends StatelessWidget {
-  const MyCurrenciesSection({Key? key}) : super(key: key);
+  MyCurrenciesSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var allCurrencies =
+        Provider.of<TopCurrenciesProvider>(context).allCurrencies;
     return Container(
       child: Column(
         children: [
@@ -21,15 +28,29 @@ class MyCurrenciesSection extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 15,
+              itemCount: allCurrencies.length - 10,
               itemBuilder: (BuildContext context, int index) {
                 return Bounceable(
                     onTap: () {
                       print("OnTap");
                     },
-                    child: MyCurrencyItem());
+                    child: LeftRightAnimationWidget(
+                      isLeftToRight: false,
+                      milliSeconds: index <= 5 ? 150 * (index+1) : 600,
+                      child: MyCurrencyItem(
+                        symbol: allCurrencies[index].symbol,
+                        heading: allCurrencies[index].name,
+                        percentageChng24:
+                            allCurrencies[index].quote.Inr.percent_change_24h,
+                        inrAmount: allCurrencies[index].quote.Inr.price,
+                        slug: allCurrencies[index].slug,
+                      ),
+                    ));
               },
             ),
+          ),
+          SizedBox(
+            height: 90,
           ),
         ],
       ),
@@ -38,24 +59,46 @@ class MyCurrenciesSection extends StatelessWidget {
 }
 
 class MyCurrencyItem extends StatelessWidget {
-  const MyCurrencyItem({Key? key}) : super(key: key);
+  final String heading;
+  final String symbol;
+  final String slug;
+  final double percentageChng24;
+  final double inrAmount;
+  MyCurrencyItem(
+      {Key? key,
+      required this.heading,
+      required this.symbol,
+      required this.inrAmount,
+      required this.percentageChng24,
+      required this.slug})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+      margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       child: Row(
         children: [
-          Container(
+          GlassmorphicContainer(
             height: 65,
             width: 65,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.red,
+            blur: 8,
+            borderRadius: 60,
+            border: 3,
+            linearGradient: Provider.of<ThemeProvider>(context)
+                .appBarBackgroundColorGradient,
+            borderGradient:
+                Provider.of<ThemeProvider>(context).appBarBorderGradient,
+            child: Center(
+              child: SvgPicture.asset(
+                CryptoImagesantsUrl().cryptoImages[slug]!,
+                height: 30,
+                width: 30,
+              ),
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 13,
           ),
           Expanded(
@@ -65,35 +108,37 @@ class MyCurrencyItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Ripple",
+                      heading,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textColor1,
+                          color: Provider.of<ThemeProvider>(context).textColor1,
                           fontSize: 18),
                     ),
                     Text(
-                      MainUtils().formatPrice(2300.0),
+                      MainUtils().formatPrice(inrAmount),
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textColor1,
+                          color: Provider.of<ThemeProvider>(context).textColor1,
                           fontSize: 16),
                     )
                   ],
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 6,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
-                      "XRP",
+                      symbol,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor2,
+                          color: Provider.of<ThemeProvider>(context).textColor2,
                           fontSize: 18),
                     ),
-                    ProfitLossIndicator(isLoss: true, percenatge: 33.5)
+                    ProfitLossIndicator(
+                        isLoss: percentageChng24 < 0,
+                        percenatge: percentageChng24)
                   ],
                 )
               ],
@@ -106,37 +151,37 @@ class MyCurrencyItem extends StatelessWidget {
 }
 
 class MyCurrenciesSectionAppBar extends StatelessWidget {
-  const MyCurrenciesSectionAppBar({Key? key}) : super(key: key);
+  MyCurrenciesSectionAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 5),
+      margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 5),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "MY CURRENCIES",
             style: TextStyle(
-                color: AppColors.textColor1,
+                color: Provider.of<ThemeProvider>(context).textColor1,
                 fontSize: 16,
                 fontWeight: FontWeight.w600),
           ),
-          const Spacer(),
+          Spacer(),
           TextButton(
               onPressed: () {},
               child: Row(
-                children: const [
+                children: [
                   Text(
                     "Manage",
                     style: TextStyle(
-                        color: AppColors.textColor1,
+                        color: Provider.of<ThemeProvider>(context).textColor1,
                         fontSize: 14,
                         fontWeight: FontWeight.w600),
                   ),
                   Icon(
                     Icons.chevron_right,
-                    color: AppColors.textColor1,
+                    color: Provider.of<ThemeProvider>(context).textColor1,
                   )
                 ],
               ))

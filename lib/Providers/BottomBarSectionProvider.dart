@@ -1,9 +1,11 @@
 import 'package:crypto_app/UI/Screens/MainScreenSections/HomeScreen.dart';
 import 'package:crypto_app/UI/Screens/MainScreenSections/PortfolioScreen.dart';
+import 'package:crypto_app/UI/Screens/ProfileScreen/ProfileScreen.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../Database/DatabaseKeys.dart';
 import '../Database/LocalData.dart';
+import '../UI/Screens/MarketsScreen/MarketScreen.dart';
 
 class BottomBarSectionProvider extends ChangeNotifier {
   int sectionIndex = 1;
@@ -32,15 +34,14 @@ class BottomBarSectionProvider extends ChangeNotifier {
     switch (sectionIndex) {
       case 1:
         return HomeScreen();
-
       case 2:
         return PortfolioScreen();
       // case 3:
       //   break;
-      // case 4:
-      //   break;
-      // case 5 :
-      //   break;
+      case 4:
+        return  MarketScreen();
+      case 5 :
+        return  ProfileScreen();
       default:
         return HomeScreen();
     }

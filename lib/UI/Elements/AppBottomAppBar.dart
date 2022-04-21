@@ -1,3 +1,4 @@
+import 'package:crypto_app/Database/LocalData.dart';
 import 'package:crypto_app/Providers/BottomBarSectionProvider.dart';
 import 'package:crypto_app/UI/Elements/AnimatedWidgets/LeftRightAnimationWidget.dart';
 import 'package:crypto_app/UI/Elements/AnimatedWidgets/UpDownAnimationWidget.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:provider/provider.dart';
 
-import '../../Constants/AppColors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../Providers/ThemeProvider.dart';
 
 class AppBottomAppBar extends StatelessWidget {
   const AppBottomAppBar({Key? key}) : super(key: key);
@@ -54,6 +57,8 @@ class AppBottomAppBar extends StatelessWidget {
                 Expanded(
                   child: BottomAppBarIconWidget(
                       onTap: () {
+
+
                         //TODO: FUNC NEED TO BE ADDED
                       },
                       asset: "assets/svg/exchange.svg",
@@ -93,8 +98,10 @@ class AppBottomAppBar extends StatelessWidget {
           blur: 5,
           borderRadius: 8,
           border: 3,
-          linearGradient: AppColors.appBarBackgroundColorGradient,
-          borderGradient: AppColors.appBarBorderGradient,
+          linearGradient:
+              Provider.of<ThemeProvider>(context).appBarBackgroundColorGradient,
+          borderGradient:
+              Provider.of<ThemeProvider>(context).appBarBorderGradient,
           width: double.maxFinite,
           height: 95,
         ),
@@ -121,7 +128,6 @@ class BottomAppBarIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       // flex: isExchange ? 6 : 5,
       child: isExchange
           ? Column(
@@ -135,11 +141,12 @@ class BottomAppBarIconWidget extends StatelessWidget {
                   initialWidth: 10,
                   milliseconds: 300,
                   child: FloatingActionButton(
-                    backgroundColor: AppColors.solidButtonColor,
+                    backgroundColor:
+                        Provider.of<ThemeProvider>(context).solidButtonColor,
                     onPressed: onTap,
                     child: SvgPicture.asset(
                       asset,
-                      color: AppColors.unSelectedIcon,
+                      color: Provider.of<ThemeProvider>(context).unSelectedIcon,
                     ),
                   ),
                 ),
@@ -148,10 +155,10 @@ class BottomAppBarIconWidget extends StatelessWidget {
                 ),
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.unSelectedIcon,
+                    color: Provider.of<ThemeProvider>(context).unSelectedIcon,
                   ),
                 )
               ],
@@ -165,8 +172,8 @@ class BottomAppBarIconWidget extends StatelessWidget {
                   SvgPicture.asset(
                     asset,
                     color: isSelected
-                        ? AppColors.selectedIcon
-                        : AppColors.unSelectedIcon,
+                        ? Provider.of<ThemeProvider>(context).selectedIcon
+                        : Provider.of<ThemeProvider>(context).unSelectedIcon,
                   ),
                   const SizedBox(
                     height: 4,
@@ -177,8 +184,8 @@ class BottomAppBarIconWidget extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: isSelected
-                          ? AppColors.selectedIcon
-                          : AppColors.unSelectedIcon,
+                          ? Provider.of<ThemeProvider>(context).selectedIcon
+                          : Provider.of<ThemeProvider>(context).unSelectedIcon,
                     ),
                   )
                 ],

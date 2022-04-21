@@ -54,7 +54,7 @@ class LocalData {
   static bool getBool(String key) {
     var box = Hive.box('DefaultDB');
 
-    bool value = box.get(key);
+    bool? value = box.get(key);
     if (value == null) {
       return false;
     }

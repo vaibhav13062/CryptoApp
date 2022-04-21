@@ -1,13 +1,18 @@
 import 'dart:io';
 
-import 'package:crypto_app/Constants/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:crypto_app/main.dart';
+import 'package:provider/provider.dart';
+
+import 'package:provider/provider.dart';
+
+import '../../../Providers/ThemeProvider.dart';
+import '../../Providers/ThemeProvider.dart';
 
 class ConnectionLost extends StatelessWidget {
-  const ConnectionLost({Key? key}) : super(key: key);
+  ConnectionLost({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class ConnectionLost extends StatelessWidget {
       },
       child: AnimatedContainer(
         duration: Duration(seconds: 2),
-        decoration: const BoxDecoration(),
+        decoration: BoxDecoration(),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(
@@ -36,7 +41,7 @@ class ConnectionLost extends StatelessWidget {
               Text(
                 'Connection Lost',
                 style: TextStyle(
-                    color: AppColors.mainColor,
+                    color: Provider.of<ThemeProvider>(context).mainColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w600),
               ),

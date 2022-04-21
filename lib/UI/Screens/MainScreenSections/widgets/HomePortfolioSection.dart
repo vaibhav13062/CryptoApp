@@ -3,7 +3,9 @@ import 'package:crypto_app/UI/Elements/ProfitLossIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-import '../../../../Constants/AppColors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../Providers/ThemeProvider.dart';
 
 class HomePortfolio extends StatelessWidget {
   const HomePortfolio({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class HomePortfolio extends StatelessWidget {
           Text("Total Value",
               maxLines: 1,
               style: TextStyle(
-                  color: AppColors.textColor1,
+                  color: Provider.of<ThemeProvider>(context).textColor1,
                   fontSize: 17,
                   fontWeight: FontWeight.w400)),
           Row(
@@ -27,7 +29,7 @@ class HomePortfolio extends StatelessWidget {
               Text(MainUtils().formatPrice(0.0),
                   maxLines: 1,
                   style: TextStyle(
-                      color: AppColors.textColor1,
+                      color: Provider.of<ThemeProvider>(context).textColor1,
                       fontSize: 22,
                       fontWeight: FontWeight.w800)),
               const Spacer(),
@@ -35,13 +37,14 @@ class HomePortfolio extends StatelessWidget {
                   height: 35,
                   width: 110,
                   borderRadius: 50,
-                  linearGradient: AppColors.appBarBackgroundColorGradient,
+                  linearGradient: Provider.of<ThemeProvider>(context)
+                      .appBarBackgroundColorGradient,
                   border: 2,
                   blur: 10,
                   child: Center(
-                      child:
-                          ProfitLossIndicator(isLoss: true, percenatge: 45.65)),
-                  borderGradient: AppColors.appBarBorderGradient),
+                      child: ProfitLossIndicator(isLoss: false, percenatge: 0)),
+                  borderGradient:
+                      Provider.of<ThemeProvider>(context).appBarBorderGradient),
             ],
           )
         ],

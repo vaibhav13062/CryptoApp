@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1475.69" height="1410.2" viewBox="0 0 1475.69 1410.2">
+  <g id="polkadot" transform="translate(74.87)">
+    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="254.3" cy="147.9" rx="254.3" ry="147.9" transform="translate(408.7 0)" fill="#e6007a"/>
+    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="254.3" cy="147.9" rx="254.3" ry="147.9" transform="translate(408.7 1114.4)" fill="#e6007a"/>
+    <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="254.3" cy="148" rx="254.3" ry="148" transform="matrix(0.5, -0.866, 0.866, 0.5, -74.87, 572.752)" fill="#e6007a"/>
+    <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="254.3" cy="147.9" rx="254.3" ry="147.9" transform="matrix(0.5, -0.866, 0.866, 0.5, 890.298, 1129.986)" fill="#e6007a"/>
+    <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="148" cy="254.3" rx="148" ry="254.3" transform="matrix(0.866, -0.5, 0.5, 0.866, -74.835, 837.454)" fill="#e6007a"/>
+    <ellipse id="Ellipse_7" data-name="Ellipse 7" cx="147.9" cy="254.3" rx="147.9" ry="254.3" transform="matrix(0.866, -0.5, 0.5, 0.866, 890.357, 280.287)" fill="#e6007a"/>
+  </g>
+</svg>

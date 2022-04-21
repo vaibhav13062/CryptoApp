@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../Constants/AppColors.dart';
+import '../../../Providers/ThemeProvider.dart';
+
+
+
+
 
 class PopupWidget extends StatelessWidget {
   final String? title;
@@ -20,7 +25,7 @@ class PopupWidget extends StatelessWidget {
         ),
         contentTextStyle: TextStyle(
           fontSize: 16,
-          color: AppColors.textColor1,
+          color: Provider.of<ThemeProvider>(context).textColor1,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w500,
         ),
@@ -28,7 +33,7 @@ class PopupWidget extends StatelessWidget {
             fontSize: 16,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
-            color: AppColors.textColor1),
+            color: Provider.of<ThemeProvider>(context).textColor1),
         actionsPadding: EdgeInsets.all(5),
         actions: [
           CustomPopUpMenuButton(
@@ -58,7 +63,7 @@ class CustomPopUpMenuButton extends StatelessWidget {
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: AppColors.mainColor),
+                color: Provider.of<ThemeProvider>(context).mainColor),
           ),
         ));
   }
